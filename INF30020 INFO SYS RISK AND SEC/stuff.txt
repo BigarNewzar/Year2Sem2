@@ -1,1 +1,14 @@
-stuffy
+Hi Leo,
+In the lab handout (3.6.1.1) for "securing administrative access using AAA and radius pt-2" file pg 16, step 7, an "authentication method list" called "TELNET_LINES" is being asked to be created before setting up the rest of the command. But I have not seen set up of "authentication method list" before. Is this same as what we do for ACL for telnet access? or is it a different method?
+
+
+week5 handout infosec:
+
+analyse threat
+evalute likelihood
+impact of threat
+
+peltier's 6 steps (cla#2 question 2a's ans)
+
+using the 6 steps (except the control) to link eTricity with Peltier
+

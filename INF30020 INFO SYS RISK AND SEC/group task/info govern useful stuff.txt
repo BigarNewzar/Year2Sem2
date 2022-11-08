@@ -1,0 +1,45 @@
+
+NEED TO PARAPHRASE EVERYTHING THAT IS NOTED HERE!!!!!
+
+Information governance (INF30020 preferred)
+---ISO 27014:2013 is the ISO 27000 series standard for 
+Governance of Information Security
+.....
+
+- Process of governance in place to support the 
+management and control an organisation’s information 
+assets and IT resources; broadly consisting of all types of 
+information assets, information and communications 
+systems as well as technology.
+
+!!!!!!!!!!!!Convert this part to "Benefit it will have to etricity"!!!
+- Increasingly important part of corporate governance 
+because of:
+	- organisational dependency on information and communications
+	- scale of IT investments
+	- potential for information resources and IT to create strategic 
+	opportunities (.e.g through data analytics)
+	- level of information/IT risk
+	- regulatory and legal requirements
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+dumbed down version for etricity could be:
+
+Good info governance assures that corruption is minimized, the views of minorities are considered and that the voices of the most vulnerable in society are heard in decision-making. It is also responsive to the present and future needs of society. 
+....................................................
+
+Problem of poor system govenance: ---link to one of the issues faced bby etricity
+
+Symptoms of poor governance
+
+	- Business frustration
+	- Significant incidents
+	- Outsourcing delivery problems
+	- Compliance failures
+	- IT limiting business capabilities
+	- Regular unfavourable audit findings
+	- Multiple and complex assurance objectives
+	- Complex IT operations
+	- Unsupportive leadership
+
+......................................................

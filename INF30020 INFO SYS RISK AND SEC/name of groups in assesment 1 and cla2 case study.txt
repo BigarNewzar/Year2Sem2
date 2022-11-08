@@ -1,0 +1,188 @@
+th two founders...(Angelique and Brad )
+customers feeding back excess into the grid....
+AU’s pool of trusted subbies are instrumental in growing the business--what are the subbies??--sub contractors...
+CFO, Josh Fraser..---CFO?
+
+
+the pair (both founders) sometimes overrides the
+decisions of their Board, design engineers and business managers and are known to give
+instructions that benefit so called “prestige” clients....
+
+The samples are tested for quality and tolerance
+before eTricity AU’s Chief Engineer, Felix South, personally selects each supplier...
+
+While this business process seems to work,
+maintaining the information trail, of important documents, sub-contractors, contracts,
+suppliers, customers, orders, invoices, and receipts is placing a significant administrative
+burden the "two data entry clerks" overseeing the system. ...
+
+To support local business, a
+Wonthaggi based software-company was hired to build eTricity RecShareOne, almost 8
+years ago, but the company no longer exists.....
+
+AU’s IT department to develop “patches, extensions and
+workarounds” just to keep RecShareOne running....
+
+dependent on a churning roster of Database Administrators and programmers
+to keep all systems operating..
+
+Jock Jordan was appointed to the role of Chief Data Officer
+in 2020 following a DDOS attack on eTricity AU’s customer facing web servers over
+Christmas 2019 that resulted in a 4.5-hour outage and heightened security concerns
+around eTricity AU’s weakest points; however, Jock is not a security expert and his brief,
+covering new data analytics, gives him little time for legacy systems....., Jock is constantly having to undertake
+additional work and activate new scripts for processing the information received through
+the ‘partner portal’ just so it can be included in the enterprise system.....
+
+eTricity AU does have an Information Systems Manager, Alain Monte Perrie, he has little direct
+authority, as he reports to the CFO, and -in any case - is preparing for retirement.....
+
+the Accounts reconciliation
+officer responsible for banking, Sally Brent, exports and converts invoicing data daily, to
+CSV format, so that she can create the Excel spreadsheets she uses to reconcile accounts
+and complete banking from ledgers on her own desktop....+ignores IT guy "Jock
+
+		---should have focused on it guy and keep company stuff in company devices, not her own
+
+The problems with
+RecShareONe have been flagged with the Board of Directors, but they are somewhat
+ignorant about enterprise systems and see the problem principally as an “IT issue.”
+Without an Information Systems Manager reporting directly to the Board they remain
+unaware of any broader implications, issues, or opportunities in this space....
+
+
+nce of the reporting system for
+customers has remained a core activity of the business. For customers the data warehouse
+promises faster real-time processing of their accounts and reports for electricity use
+including a dynamic reporting interface that allows customers to undertake detailed
+analysis of household appliances energy consumption and the AI-based statistical
+analysis and forecasting of future use; they can now monitor and send information about
+electricity use to multiple devices and social media accounts, including Facebook and
+Twitter.....
+
+developed eTricStorage to allows customers to act on real
+time information in new ways (e.g., home usage patterns, stored power level, consumer
+trends and energy prices) to mix and optimise their cost....
+
+the Board has flagged this system as the
+inevitable replacement for the original eTric inverter and monitoring platform and, as
+such, the security of this new solar energy and customer information platform, is integral
+to the company’s future....
+
+As the company’s
+Human Resource manager, she (rebecca adams) is responsible for making sure everyone gets paid on time
+and no longer satisfied with RecShareOne, she has commenced looking at cloud
+technology and Software as a Service (SaaS) to support the HR function
+
+
+Workday, a US based SaaS provider ... + offshoring HR data...
+
+Ultimately, rebecca's intention is to seek funding from the
+CFO for the purchase of a SaaS based Human Resource Management solution....
+---
+
+
+Rebecca has found an ally in the Customer Service Manager for eTricity AU, "Theresa Alvantez". When Theresa became aware of the HR manager’s intention to adopt SaaS for
+HR, she too started to think about getting approval from the CFO to adopt Salesforce.com’s
+Customer Relationship Management (CRM) system
+
+
+Theresa is reluctant to go through any consultative process with the Information Systems Manager,
+Alain Monte Perrie, whom she regards as a “IT control freak” without any power with the
+Board – Governance of customer data she feels, is her concern and not ITs. When it comes
+to the strategic direction of eTricity AU, Alain is concerned that the IT function is being
+disregarded, but will retire soon....
+
+
+transactional data from partners including manufacturers,
+suppliers, distributors, installers.....
+
+the company is
+owned by "a close and trusted friend" of Alain Monte Perrie and although it is a relatively
+new company, so far it has made good on its promise to provide an "excellent and reliable
+service to secure all corporate data and information" and "provide cost effective solutions
+to corporate data backup and restoration"......
+
+Recently, employees who have been with the company for its first 10
+years, including its Chief Engineer have left and a lot of corporate know-how has departed
+with them.....
+
+Nobody is sure why Felix South chose the suppliers that he did, but a recent
+review suggests that it may not have been based solely on a competitive tender process....
+
+departing employees seem jaded following the pressures of the past few years....
+
+the number of viruses detected
+in email attachments scanned by the IT department and IT recently identified a targeted
+phishing attack designed to convince finance personnel to release account details to an
+unknown party.....
+
+****
+ask him to show all the steps for retoring old version and removing password from router (those 14 steps using real equipment3)
+
+****
+
+mark to point ratio?
+way to apprach question?
+
+
+
+founder--done
+
+sally--done 
+rebecca--- done
+
+Alain ---done
+
+
+senior management and iT department--according to peltier?
+operational---hr--cheif data officer---
+
+alein--cfo-ceo--board
+
+board of directors---> main responsible for info?
+
+founder--cheif engineer--cheif resource manager--cheif data officer
+
+owner
+board of director
+CFO
+CDO
+HRM
+CSM
+ISM-info system
+chief engineer
+account reconsiliation officer
+IT department
+design enginner
+business manager
+subbies
+customer---?
+
+people undermining people(eg owner over powering the board of directors)
+
+recshare
+data analytics
+CRM system
+HR system
+dvanced monitoring system
+
+asset---threat---vulnerability
+account info---data breach----she is doing it in personal pc
+recshare data---degradation, natural disaster-- she stored it offline in safe
+recshare (supplier, customer)-- external attack, internal corruption, fraud, human error ---maintenance
+
+full comapny data--- data loss, data breach,   ---third party storage
+enterprise system--- data breach, netwokr threat---subbies has direct access
+enterprise system--- corruption---subbies has full access
+
+recshare--not the data being sold?
+
+whitmann------people, system, business process, procedure, record, data,
+
+(record----transmission, process, storage) 
+
+
+for cla2, can we use table?--yes
+(note probably 20 different roles and responibilities or asset vulnerability and threat analysis is possible. keep it in mind for the big assesment)
+
