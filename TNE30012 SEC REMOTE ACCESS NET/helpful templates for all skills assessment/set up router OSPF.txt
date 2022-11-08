@@ -1,0 +1,39 @@
+To set up OSPF on Routers:
+
+
+enable
+conf t
+router ospf <<a process id from 1 to 65535>>
+network <<ip address of that network>> <<wildcard>> area <<OSPF area id (usually its "0")>>
+end
+
+
+set up router id on OSPF:
+
+enable
+conf t
+router ospf <<a process id from 1 to 65535>>
+router-id <<ip address that you want to set as router ip>>
+end
+
+(otherwise, if loopbacks are set on it, the highest loopback will be used as router ID too)
+
+(if no loopback at all, then the highest ip on it (that still has active interface) will be used as router iD)
+
+(best case to force it to a certain value using those command sets)
+
+
+To test it:
+
+sh ip ospf neighbor
+(brings up list with "neighbor IDs" and state as "FULL" )
+(ones that dont have these means smth has gone wrong and ospf have not been set properly either on this router or on those routers preventing ospf communication from occuring)
+
+sh ip protocols
+(displays OSPF process ID, router ID, networks router is advertising & administrative distance)
+
+sh ip ospf
+(Displays OSPF process ID, router ID, OSPF area information & the last time SPF algorithm calculated)
+
+sh ip ospf interface
+(Displays hello interval and dead interval)

@@ -1,0 +1,588 @@
+R1#sh run
+service password-encryption
+hostname R1
+!
+security passwords min-length 10
+enable secret 9 $9$W0dzU4IVVgqvVr$jsk.ECVildF1GGmgunwscR273xOT33oWYRa1shXRRv.
+!
+aaa new-model
+!
+aaa authentication login default local-case enable
+!
+no ip domain lookup
+ip domain name ccnasecurity.com
+!
+login block-for 60 attempts 2 within 30
+login on-failure log every 2
+login on-success log
+!
+username Admin01 privilege 15 secret 9 $9$MrSndOENAweyW5$9ty6FMIhoFWxNd2C6dkuqNdlasDxsEAo2C5NdIHCH3c
+!
+interface GigabitEthernet0/0/1
+ ip address 209.165.200.225 255.255.255.248
+ negotiation auto
+!
+interface Serial0/1/0
+ ip address 10.1.1.1 255.255.255.252
+!
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 10.1.1.2
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+banner motd ^C Unauthorized access strictly prohibited and prosecuted to the full extent of the law! ^C
+!
+line con 0
+ exec-timeout 15 0
+ privilege level 15
+ logging synchronous
+ line vty 0 4
+ exec-timeout 15 0
+ privilege level 15
+ transport input ssh
+!
+ntp authentication-key 1 md5 0228306B1B071C325B411B1D 7
+ntp authenticate
+ntp trusted-key 1
+ntp server 10.1.1.2
+end
+
+R1#
+
+
+R2#sh run
+service password-encryption
+hostname R2
+!
+no ip domain lookup
+!
+interface Loopback0
+ ip address 172.30.1.1 255.255.255.0
+!
+interface Serial0/1/0
+ ip address 10.1.1.2 255.255.255.252
+!
+interface Serial0/1/1
+ ip address 10.2.2.2 255.255.255.252
+!
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip route 172.16.3.0 255.255.255.0 10.2.2.1
+ip route 209.165.200.224 255.255.255.248 10.1.1.1
+!
+line con 0
+line vty 0 4
+ login
+!
+ntp authentication-key 1 md5 153C3F3C142B38373F3C2726 7
+ntp authenticate
+ntp trusted-key 1
+ntp master 3
+!
+end
+
+R2#
+
+R3#sh run
+
+service password-encryption
+hostname R3
+!
+security passwords min-length 10
+enable secret 9 $9$LvjPMDqXjcE.sK$KuFNRgBM9M5zl2G4NFVUM8SBQ6qaeo.8okeMZbyPaqc
+!
+aaa new-model
+!
+aaa authentication login default local-case enable
+!
+no ip domain lookup
+ip domain name ccnasecurity.com
+!
+login block-for 60 attempts 2 within 30
+login on-failure log
+login on-success log
+!
+username Admin01 privilege 15 secret 9 $9$2wnKSanVTaoijq$nYLIh8tfnWks.t30bf1cptKolwNV.i.AjZztMjJoTTg
+!
+class-map type inspect match-any INSIDE-PROTOCOLS
+ match protocol tcp
+ match protocol udp
+ match protocol icmp
+!
+policy-map type inspect INSIDE-TO-OUTSIDE
+ class type inspect INSIDE-PROTOCOLS
+  inspect
+ class class-default
+!
+zone security INSIDE
+zone security OUTSIDE
+zone-pair security INSIDE-TO-OUTSIDE source INSIDE destination OUTSIDE
+ service-policy type inspect INSIDE-TO-OUTSIDE
+!
+crypto isakmp policy 1
+ encr 3des
+ authentication pre-share
+ group 2
+crypto isakmp key Site2SiteKEY1 address 209.165.200.226
+!
+crypto ipsec transform-set TRNSFRM-SET esp-3des esp-sha-hmac
+ mode tunnel
+!
+crypto map CMAP 1 ipsec-isakmp
+ set peer 209.165.200.226
+ set transform-set TRNSFRM-SET
+ match address 101
+!
+interface GigabitEthernet0/0/1
+ ip address 172.16.3.1 255.255.255.0
+ zone-member security INSIDE
+ negotiation auto
+!
+interface Serial0/1/1
+ ip address 10.2.2.1 255.255.255.252
+ zone-member security OUTSIDE
+ crypto map CMAP
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.2.2.2
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+logging trap warnings
+logging host 172.16.3.3
+access-list 101 permit ip 172.16.3.0 0.0.0.255 192.168.1.0 0.0.0.255
+!
+banner motd ^C Unauthorized access strictly prohibited and procecuted to the full extent of the law! ^C
+!
+line con 0
+ exec-timeout 15 0
+ privilege level 15
+ logging synchronous
+ transport input none
+line vty 0 4
+ exec-timeout 15 0
+ privilege level 15
+ transport input ssh
+!
+ntp authentication-key 1 md5 013D32344B0A151C36435C0D 7
+ntp authenticate
+ntp trusted-key 1
+ntp server 10.2.2.2
+end
+
+R3#
+
+S1#sh run
+
+service password-encryption
+!
+hostname S1
+!
+enable secret 9 $9$S1w319Z/Ounuop$vbFq4dgNK9kJ7GIOj3dbOMxtHRwx9WK3f5ySybdaBUI
+!
+username Admin01 privilege 15 secret 9 $9$KpdPxpSZxa/kBI$BXUn0uHni0ma5VxHYoZ0L84Or8zfzT2sf31fx2PfMCU
+no aaa new-model
+vtp mode transparent
+!
+no ip domain-lookup
+ip domain-name ccnasecurity.com
+!
+spanning-tree mode pvst
+spanning-tree loopguard default
+spanning-tree extend system-id
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+ shutdown
+!
+interface FastEthernet0/3
+ shutdown
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ switchport mode access
+ switchport port-security mac-address sticky
+ switchport port-security
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ ip address 192.168.2.11 255.255.255.0
+!
+ip default-gateway 182.168.2.1
+no ip http server
+no ip http secure-server
+!
+!
+banner motd ^C Unauthorized access strictly prohibited! ^C
+!
+line con 0
+ exec-timeout 5 0
+ privilege level 15
+ logging synchronous
+ login local
+line vty 0 4
+ exec-timeout 5 0
+ privilege level 15
+ login local
+ transport input ssh
+line vty 5 15
+ exec-timeout 5 0
+ privilege level 15
+ login local
+ transport input ssh
+!
+end
+
+S1#
+
+S2#sh run
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname S2
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+vtp mode transparent
+!
+no ip domain-lookup
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.1.11 255.255.255.0
+!
+ip default-gateway 192.168.1.1
+ip http server
+ip http secure-server
+!
+line con 0
+line vty 5 15
+!
+end
+
+S2#
+
+S3#sh run
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+!
+hostname S3
+!
+no aaa new-model
+!
+no ip domain lookup
+!
+vtp mode transparent
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+interface GigabitEthernet1/0/1
+!
+interface GigabitEthernet1/0/2
+!
+interface GigabitEthernet1/0/3
+!
+interface GigabitEthernet1/0/4
+!
+interface GigabitEthernet1/0/5
+!
+interface GigabitEthernet1/0/6
+!
+interface GigabitEthernet1/0/7
+!
+interface GigabitEthernet1/0/8
+!
+interface GigabitEthernet1/0/9
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ ip address 172.16.3.11 255.255.255.0
+!
+ip default-gateway 172.16.3.1
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+end
+
+S3#$
+
+CCNAS-ASA# sh run
+!
+hostname CCNAS-ASA
+domain-name ccnasecurity.com
+enable password $sha512$5000$we4ttdVp92tDlCjC7axSCg==$NUIQN06/g3FdlrY5OAJLEw== pbkdf2
+!
+interface GigabitEthernet1/5
+ nameif outside
+ security-level 0
+ ip address 209.165.200.226 255.255.255.248
+!
+interface GigabitEthernet1/6
+ nameif inside
+ security-level 100
+ ip address 192.168.1.1 255.255.255.0
+!
+interface GigabitEthernet1/7
+ nameif dmz
+ security-level 70
+ ip address 192.168.2.1 255.255.255.0
+!
+clock timezone AEST 10
+clock summer-time EADT recurring 1 Sun Oct 2:00 1 Sun Apr 3:00
+!
+domain-name ccnasecurity.com
+!
+object network inside-net
+ subnet 192.168.1.0 255.255.255.0
+object network dmz-server
+ host 192.168.2.3
+object network NETWORK_OBJ_172.16.3.0_24
+ subnet 172.16.3.0 255.255.255.0
+object network NETWORK_OBJ_192.168.1.0_24
+ subnet 192.168.1.0 255.255.255.0
+!
+access-list OUTSIDE-DMZ extended permit ip any host 192.168.2.3
+access-list outside_cryptomap extended permit ip 192.168.1.0 255.255.255.0 172.16.3.0 255.255.255.0
+!
+nat (inside,outside) source static NETWORK_OBJ_192.168.1.0_24 NETWORK_OBJ_192.168.1.0_24 destination static NETWORK_OBJ_172.16.3.0_24 NETWORK_OBJ_172.16.3.0_24 no-proxy-arp route-lookup
+!
+object network inside-net
+ nat (inside,outside) dynamic interface
+object network dmz-server
+ nat (dmz,outside) static 209.165.200.227
+access-group OUTSIDE-DMZ in interface outside
+!
+route outside 0.0.0.0 0.0.0.0 209.165.200.225 1
+!
+aaa authentication ssh console LOCAL
+aaa authentication http console LOCAL
+!
+http server enable
+http 192.168.1.0 255.255.255.0 inside
+!
+crypto ipsec ikev1 transform-set TRANSFRM-SET esp-3des esp-sha-hmac
+crypto map CMAP 1 match address outside_cryptomap
+crypto map CMAP 1 set peer 10.2.2.1
+crypto map CMAP 1 set ikev1 transform-set TRANSFRM-SET
+crypto map CMAP interface outside
+!
+crypto ikev1 enable outside
+crypto ikev1 policy 1
+ authentication pre-share
+ encryption 3des
+ hash sha
+ group 2
+ lifetime 86400
+!
+ssh 172.16.3.0 255.255.255.0 outside
+ssh 192.168.1.0 255.255.255.0 inside
+ssh timeout 10
+!
+dhcpd address 192.168.1.5-192.168.1.100 inside
+dhcpd enable inside
+!
+username admin01 password $sha512$5000$AQxoAX7SR5cqp3GIdDdL+A==$/ObtR9/4hYh9naYi/WTe1g== pbkdf2
+username Admin01 password $sha512$5000$GBe6/uBJqd9DTRc3K6CosQ==$BrTgw85D5t4UxersGxUm0g== pbkdf2
+!
+tunnel-group 10.2.2.1 type ipsec-l2l
+tunnel-group 10.2.2.1 ipsec-attributes
+ ikev1 pre-shared-key *****
+!
+class-map inspection_default
+ match default-inspection-traffic
+!
+policy-map global_policy
+ class inspection_default
+    inspect icmp
+service-policy global_policy global
+: end
+CCNAS-ASA# $

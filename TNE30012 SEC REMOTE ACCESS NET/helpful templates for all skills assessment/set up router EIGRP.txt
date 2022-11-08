@@ -1,0 +1,32 @@
+set up eigrp on router:
+
+enable
+conf t
+router eigrp <<an ASN value like 1 (better to keep this number same in all the other routers too)>>
+network <<internal network of the routers if any>>
+network <<ip address of the network>> <<wildcard>>
+end
+
+
+
+to redistribute static routes/ default router on gateway router to internal routers usig eigrp
+
+enable
+conf t
+router eigrp <<an ASN number like 65>>
+redistribute static
+end
+
+
+
+test it:
+
+sh ip eigrp topology
+(to see the list of least cost and backup routes for each ip addresses)
+
+sh ip eigrp neighbors
+(to see address of neighbours and interfaces connecting them, last time it was checked, time when it had been established, SRTT (packet to this neighbor and ack back time), Retransmission timeout, Queue count, SEQ no )
++ also see what router have established communication)
+
+sh ip protocols
+(to see when last update was recieved on each interface)

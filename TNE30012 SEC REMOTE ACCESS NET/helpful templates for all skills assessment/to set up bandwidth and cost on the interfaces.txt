@@ -1,0 +1,33 @@
+TO set up bandwidth or cost:
+
+
+To set up Bandwidth:
+
+enable
+conf t
+int <<interface ID>>
+bandwidth <<value>>
+end
+
+(bandwidth values possible: 100000, 10000, 2048, 1544, 128, 64, 56)
+
+
+(in show run, only cost will be show up! so will need to calculate the equivalent cost to that bandwidth to see if it matches)
+
+10/(<<bandwidth>>*1000) = cost
+
+
+to set up cost:
+
+enable
+conf t
+int <<interface ID>>
+cost <<value>>
+end
+
+(cost values possible: 1, 10, 48, 64, 781, 1562, 1785)
+
+To test it:
+
+sh run
+(and see the value written as cost on that interface +( check for the equivalent cost for that bandwidth by calculating))

@@ -1,0 +1,16 @@
+Managing MAC Address table:
+
+
+To display entries in the table:
+show  mac address-table 
+
+To displays only dynamic entries in  table:
+show  mac address-table dynamic
+
+
+To deletes all entries from table:
+clear  mac address-table 
+
+
+To deletes only dynamic entries from table:        
+clear  mac address-table dynamic 

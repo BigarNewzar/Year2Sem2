@@ -1,0 +1,145 @@
+ACL configurations:
+
+(keep in mind all acls are case sensitive!!!!)
+
+
+
+standard named ACL configuration:
+
+
+(eg to deny telnet access via standard access)
+enable
+conf t
+ip access-list standard <<ACL name like ACLTELNETACCESS>>
+!<<vlan to set it on dor documentation>>
+deny <<network ip address>> <<wildcard>>
+!<<vlan to set it on dor documentation>>
+permit <<network ip address>> <<wildcard>>
+
+
+(then end with "permit ip any")
+(here it is a single any instead of multiple "any any" like in extended access list)
+
+
+
+
+line vty 0 4
+password <<password for telnet access on the router>>
+login
+access-class <<name of that ACL>> in
+end
+
+
+
+
+
+
+
+
+Extended named ACL configuration:
+(example)
+
+
+
+enable
+conf t
+ip  access-list extended  <<ACL Vlan name like ACLVLAN10>>
+
+(then set up some tcp, ip restrictions or permit depending on question)
+
+deny  tcp <<ip network to deny>>  <<wildcard>> host <<ip address which we would try to access to like "server" on ISP>> eq <<which protocol port to block (for "http" write 80 here>>
+
+
+(the end with any any)
+
+permit  ip any any
+end
+
+(then set up which subinterface the acl will work on)
+
+conf t
+int <<interface>>.<<subinterface/vlan id on that router>>
+ip access-group <<ACLVLAN name like ACLVLAN10>> in
+end
+
+
+
+
+
+
+(the last para links up the access list on the subinterface and makes it start to work)
+
+(the "in" is used as the packet will come into the router from that interface. If it was about a packet that would come from internet side to router but we want to blck it, only in that case use "out" instead on "in" there )
+
+
+To deny access by ip (ie pinging to host):
+
+deny ip <<Ip network address>> <<wildcard>> host <<ip of host>>
+
+
+To enable access by ip (ie pinging to host):
+
+permit ip <<Ip network address>> <<wildcard>> host <<ip of host>>
+
+
+To deny access by tcp (ie opening browser and putting the ip in the address):
+
+deny tcp <<Ip network address>> <<wildcard>> host <<ip of host>> eq 80
+
+
+To enable access by tcp (ie opening browser and putting the ip in the address):
+
+permit tcp <<Ip network address>> <<wildcard>> host <<ip of host>> eq 80
+
+(note: can also do for icmp and udp but their port (ie part after eq has not been mentioned anywhere in notes))
+(note: operators can be "eq" (equal to port value) "neq"(not equal to port value) "lt" (less than port value) "gt"(greater than port value))
+(note: for ftp, port will be "20")
+(note: for telnet, port will be "23")
+
+
+(note always keep permit ip any any as the very last command and dont mess up the order!)
+
+To remove the extended list:
+
+no ip access-list extended <<name of acl like ACLVLAN10>>
+
+
+to test it:
+sh run
+(and see what is written in the acl part there and if proper interface is applying it or not)
+
+show access-list
+(shows all access lists)
+
+clear access-list counters 
+(clears ip packet hits against a rule)
+
+
+example  (done for telnet placement, allowing 1 router and deny in another router)
+
+(keep in mind, telnet is only possible using standard acl , not extended acls!)
+
+
+
+On Latur
+no ip  access-list  standard  ACLTELNET
+ip  access-list  standard  ACLTELNET
+! Permit VLANXXX Telnet Access to Latur
+    permit source subnet   wildcard  (inverse of subnet mask)
+    deny any 
+
+! On Barshi
+no ip  access-list  standard  ACLTELNET
+ip  access-list  standard  ACLTELNET
+! Deny VLANXXX Telnet Access to Barshi
+    deny source subnet   wildcard  (inverse of subnet mask)
+    permit any 
+
+
+
+Interface Placement - line vty 0 4, on Latur and Barshi Routers
+
+line vty 0 4
+  password cisco
+  login
+  access-class ACLTELNET in 

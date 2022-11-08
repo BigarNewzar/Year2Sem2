@@ -1,0 +1,58 @@
+To set up RIPv2 in router:
+
+enable
+conf t
+router rip
+version 2
+network <<internal network you want it to broadcast>>
+
+
+(if you want it to not send routing updates to vlan subnets)
+(this is for good practise and ensure this is set for all vlans and loopbacks set on internal router as it prevents them from being advertising outside the internal network)
+
+passive-interface <<interface id for the subinterface>>>.<<vlan id>>
+
+passive-interface <<loopback name>>
+
+(ie passive-interface loopback 0)
+
+(if you want to configure a default route)
+(only confirue on the final router that is going to send to isp and on that port sending the info to isp router)
+
+ip route <<ip address>> <<mask>> <<port to outside>>
+
+(to advertise default route to the other internal routers)
+(only set it on the final router connected to isp router)
+
+default-information originate
+
+
+(configure a static route to internal network)
+(only do this on the isp router)
+
+ip route <<ip address>> <<mask>> <<port to internal routers>>
+
+To test it:
+
+sh ip route
+(then see if ip addressed on different routers pop up as serial link ones or not + also the gateway of last resort (since it is advertised by router just after the isp, all aother routers should also have it in them))
+
+ping <<ip address>>
+(also ping the pcs on different subnet on other router or gateways on other router's other subnet/ vlans)
+
+sh run
+(then see what is written in router rip part)
+
+debug ip rip
+(then see if it gets updates from those ips set on those serial links and also the subnets set on those routers)
+
+sh ip protocols | section Default
+(in packet tracer the section default wont work, instead do:)
+sh ip protocols
+(there see what is written in the section default part)
+
+
+show ip protocols | begin Default
+(in packet tracer it wont work, so just look for default part and see the passive interface parts and match them)
+(also see the gateway to the internet or gateway or last resort set or not)
+
