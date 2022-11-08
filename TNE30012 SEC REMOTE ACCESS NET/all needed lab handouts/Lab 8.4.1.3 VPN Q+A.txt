@@ -1,0 +1,136 @@
+Lab 8.4.1.3 Implementing VPNs
+
+Step 3 part c - Verify the IKE policy with the show crypto isakmp policy command
+
+R1#show crypto isakmp policy 
+
+
+
+Step 4 Configure pre-shared keys
+
+Q. Which IP addresses should you use to configure the IKE peers, given the topology diagram and IP addressing table? Why?
+A.
+
+Step 5 Configure the IPsec transform set and lifetime.
+
+Q. What is the function of the IPsec transform set?
+A.
+
+Step 6 Define interesting traffic.
+Q. Does IPsec evaluate whether the access lists are mirrored as a requirement to negotiate its security association?
+A.
+
+Task 2 : verify Site-toSite VPN
+
+Enter show crypto ipsec transformation.
+ R1#show crypto ipsec transform-set 
+
+
+R3#sh crypto ipsec transform-set 
+
+
+Show crypto map
+R1#show crypto map
+
+
+R3#sh crypto map 
+
+
+
+Task 3: verify the IPsec VPN Operation
+
+Display ISAKMP security associations
+
+R1#sh crypto isakmp sa
+
+
+R1# sh crypto ipsec sa
+
+
+
+Q. Why haven't any SAs been formed?
+A. 
+
+Step 3.
+
+
+R1#ping 10.2.2.1
+
+
+
+
+
+R1#sh crypto isakmp sa
+
+
+
+
+R1#ping 192.168.3.1
+
+
+
+
+R1#sh crypto isakmp sa
+
+
+
+Q was an SA created for thses pings?  Explain.
+A.
+  
+Issue the debug ip ospf events
+
+R1#debug ip ospf  events
+
+
+
+Reissue the show crypto isakmp sa command
+
+R1#sh crypto isakmp sa
+
+Q. Was an SA created between R1 and R3? Explain
+A.
+
+Step 4: Generate some interesting traffic
+
+Extended ping fromR1 to R3 G0/1 interface address 192.168.3.1
+
+R1#ping
+
+
+Reissue the show crypto iskakmp sa command
+
+R1#sh crypto isakmp sa
+
+
+
+Q. Why was an SA created between R1 and R3 this time?
+A.
+
+Q. What are the endpoints of hte IPsec VPN tunnel?
+A.
+
+Ping from PC-A to PC-C
+
+
+C:\>ping 192.168.3.3
+
+
+
+Q. How many packets have been tranformed between R1 and R3?
+A. 
+
+do a show crypto ipsec sa
+
+R1#sh crypto ipsec sa
+
+
+
+Q. The previous example used pings to generate interesting traffic.  What other types of traffic wolud result
+in an SA forming and tunnel establishment?
+A. 
+
+REFLECTION
+
+Q. Would traffic on the Gigabit Ethernet link between PC-A and the R1 F0/0 interface be encrypted by the 
+site-to-site IPsec VPN tunnel? Explain.
+A.
